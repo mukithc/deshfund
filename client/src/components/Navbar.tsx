@@ -22,25 +22,25 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/">
-            <a className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-accent font-semibold text-xl">DF</span>
               </div>
               <span className="text-2xl font-display font-bold text-foreground">DeshFund</span>
-            </a>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <a
+                <span
                   className={`text-sm font-medium transition-colors hover:text-primary ${
                     location === link.href ? "text-primary" : "text-muted-foreground"
                   }`}
                 >
                   {link.label}
-                </a>
+                </span>
               </Link>
             ))}
           </div>
@@ -88,14 +88,14 @@ export default function Navbar() {
           <div className="md:hidden py-4 space-y-4">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
-                <a
+                <span
                   className={`block py-2 text-sm font-medium transition-colors hover:text-primary ${
                     location === link.href ? "text-primary" : "text-muted-foreground"
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.label}
-                </a>
+                </span>
               </Link>
             ))}
             <div className="pt-4 space-y-2">

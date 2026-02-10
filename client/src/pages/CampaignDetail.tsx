@@ -597,12 +597,12 @@ export default function CampaignDetail() {
                           </div>
                           <p className="text-muted-foreground leading-relaxed">{campaign.founder.bio}</p>
                           {campaign.founder.linkedin && (
-                            <Button variant="outline" size="sm" asChild>
-                              <a href={campaign.founder.linkedin} target="_blank" rel="noopener noreferrer">
+                            <a href={campaign.founder.linkedin} target="_blank" rel="noopener noreferrer">
+                              <Button variant="outline" size="sm">
                                 <Linkedin className="h-4 w-4 mr-2" />
                                 LinkedIn Profile
-                              </a>
-                            </Button>
+                              </Button>
+                            </a>
                           )}
                         </div>
                       </div>

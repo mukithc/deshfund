@@ -22,10 +22,10 @@ export default function Footer() {
           <div>
             <h3 className="font-accent font-semibold mb-4">Platform</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/campaigns"><a className="hover:text-primary transition-colors">Browse Campaigns</a></Link></li>
-              <li><Link href="/how-it-works"><a className="hover:text-primary transition-colors">How It Works</a></Link></li>
-              <li><Link href="/start-campaign"><a className="hover:text-primary transition-colors">Start a Campaign</a></Link></li>
-              <li><Link href="/invest"><a className="hover:text-primary transition-colors">Invest</a></Link></li>
+              <li><Link href="/campaigns"><span className="hover:text-primary transition-colors cursor-pointer">Browse Campaigns</span></Link></li>
+              <li><Link href="/how-it-works"><span className="hover:text-primary transition-colors cursor-pointer">How It Works</span></Link></li>
+              <li><Link href="/start-campaign"><span className="hover:text-primary transition-colors cursor-pointer">Start a Campaign</span></Link></li>
+              <li><Link href="/invest"><span className="hover:text-primary transition-colors cursor-pointer">Invest</span></Link></li>
             </ul>
           </div>
 
@@ -33,10 +33,10 @@ export default function Footer() {
           <div>
             <h3 className="font-accent font-semibold mb-4">Company</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/about"><a className="hover:text-primary transition-colors">About Us</a></Link></li>
-              <li><Link href="/team"><a className="hover:text-primary transition-colors">Team</a></Link></li>
-              <li><Link href="/careers"><a className="hover:text-primary transition-colors">Careers</a></Link></li>
-              <li><Link href="/contact"><a className="hover:text-primary transition-colors">Contact</a></Link></li>
+              <li><Link href="/about"><span className="hover:text-primary transition-colors cursor-pointer">About Us</span></Link></li>
+              <li><Link href="/team"><span className="hover:text-primary transition-colors cursor-pointer">Team</span></Link></li>
+              <li><Link href="/careers"><span className="hover:text-primary transition-colors cursor-pointer">Careers</span></Link></li>
+              <li><Link href="/contact"><span className="hover:text-primary transition-colors cursor-pointer">Contact</span></Link></li>
             </ul>
           </div>
 
@@ -44,9 +44,9 @@ export default function Footer() {
           <div>
             <h3 className="font-accent font-semibold mb-4">Legal</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link href="/privacy"><a className="hover:text-primary transition-colors">Privacy Policy</a></Link></li>
-              <li><Link href="/terms"><a className="hover:text-primary transition-colors">Terms of Service</a></Link></li>
-              <li><Link href="/security"><a className="hover:text-primary transition-colors">Security</a></Link></li>
+              <li><Link href="/privacy"><span className="hover:text-primary transition-colors cursor-pointer">Privacy Policy</span></Link></li>
+              <li><Link href="/terms"><span className="hover:text-primary transition-colors cursor-pointer">Terms of Service</span></Link></li>
+              <li><Link href="/security"><span className="hover:text-primary transition-colors cursor-pointer">Security</span></Link></li>
             </ul>
           </div>
         </div>

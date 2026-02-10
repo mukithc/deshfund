@@ -121,14 +121,14 @@ export default function HowItWorks() {
             <div className="max-w-4xl mx-auto">
               <Card className="overflow-hidden">
                 <div className="aspect-video bg-muted relative">
-                  <iframe
+                  <video
                     className="absolute inset-0 w-full h-full"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="DeshFund Platform Tutorial"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
+                    controls
+                    preload="metadata"
+                  >
+                    <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663333578426/awgVUXWIsJdxVmUt.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
                 <CardContent className="p-6">
                   <h3 className="text-xl font-display font-bold mb-2 text-foreground">
