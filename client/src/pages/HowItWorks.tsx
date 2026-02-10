@@ -126,7 +126,7 @@ export default function HowItWorks() {
                     controls
                     preload="metadata"
                   >
-                    <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663333578426/awgVUXWIsJdxVmUt.mp4" type="video/mp4" />
+                    <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663333578426/wObZYakCAIzcRNXd.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 </div>
