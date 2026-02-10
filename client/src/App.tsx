@@ -14,6 +14,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import VerifyEmail from "./pages/VerifyEmail";
 import StartCampaign from "./pages/StartCampaign";
+import CampaignDetail from "./pages/CampaignDetail";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
       <Route path={"/dashboard"} component={Dashboard} />
       <Route path={"/verify-email"} component={VerifyEmail} />
       <Route path={"/start-campaign"} component={StartCampaign} />
+      <Route path={"/campaigns/:id"} component={CampaignDetail} />
       <Route path={"/ 404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
