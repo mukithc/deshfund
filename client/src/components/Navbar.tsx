@@ -49,6 +49,11 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <>
+                <Link href="/start-campaign">
+                  <Button variant="default" size="sm" className="font-accent">
+                    Start Campaign
+                  </Button>
+                </Link>
                 <Link href="/dashboard">
                   <Button variant="ghost" size="sm">
                     Dashboard
@@ -60,6 +65,11 @@ export default function Navbar() {
               </>
             ) : (
               <>
+                <Link href="/start-campaign">
+                  <Button variant="ghost" size="sm">
+                    Start Campaign
+                  </Button>
+                </Link>
                 <Link href="/login">
                   <Button variant="ghost" size="sm">
                     Login
@@ -101,6 +111,11 @@ export default function Navbar() {
             <div className="pt-4 space-y-2">
               {isAuthenticated ? (
                 <>
+                  <Link href="/start-campaign">
+                    <Button variant="default" size="sm" className="w-full font-accent">
+                      Start Campaign
+                    </Button>
+                  </Link>
                   <Link href="/dashboard">
                     <Button variant="ghost" size="sm" className="w-full">
                       Dashboard
