@@ -14,8 +14,10 @@ import { useLocation, useRoute } from "wouter";
 import { toast } from "sonner";
 import { 
   TrendingUp, Users, Calendar, Target, Shield, Sparkles, 
-  CheckCircle2, ArrowRight, Building2, MapPin, Globe, Linkedin 
+  CheckCircle2, ArrowRight, Building2, MapPin, Globe, Linkedin,
+  LineChart as LineChartIcon
 } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
 
 /* Bangladesh Heritage Fusion Design - Campaign Detail Page */
 
@@ -299,8 +301,9 @@ export default function CampaignDetail() {
 
               {/* Tabs */}
               <Tabs defaultValue="business" className="w-full">
-                <TabsList className="grid w-full grid-cols-4">
+                <TabsList className="grid w-full grid-cols-5">
                   <TabsTrigger value="business">Business</TabsTrigger>
+                  <TabsTrigger value="projections">Projections</TabsTrigger>
                   <TabsTrigger value="traction">Traction</TabsTrigger>
                   <TabsTrigger value="team">Team</TabsTrigger>
                   <TabsTrigger value="ai">AI Insights</TabsTrigger>
@@ -347,6 +350,193 @@ export default function CampaignDetail() {
                           </li>
                         ))}
                       </ul>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                <TabsContent value="projections" className="space-y-6 mt-6">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg font-display flex items-center gap-2">
+                        <LineChartIcon className="h-5 w-5 text-primary" />
+                        Investment Growth Projection
+                      </CardTitle>
+                      <CardDescription>
+                        Estimated value of ৳1,00,000 investment over 5 years based on conservative growth assumptions
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <div className="h-[300px]">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <AreaChart
+                            data={[
+                              { year: "Year 0", value: 100000, conservative: 100000, optimistic: 100000 },
+                              { year: "Year 1", value: 125000, conservative: 115000, optimistic: 140000 },
+                              { year: "Year 2", value: 165000, conservative: 135000, optimistic: 210000 },
+                              { year: "Year 3", value: 225000, conservative: 165000, optimistic: 320000 },
+                              { year: "Year 4", value: 320000, conservative: 205000, optimistic: 480000 },
+                              { year: "Year 5", value: 450000, conservative: 260000, optimistic: 720000 },
+                            ]}
+                            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                          >
+                            <defs>
+                              <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                              </linearGradient>
+                            </defs>
+                            <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
+                            <XAxis 
+                              dataKey="year" 
+                              tick={{ fontSize: 12 }}
+                              stroke="hsl(var(--muted-foreground))"
+                            />
+                            <YAxis 
+                              tick={{ fontSize: 12 }}
+                              stroke="hsl(var(--muted-foreground))"
+                              tickFormatter={(value) => `৳${(value/1000).toFixed(0)}K`}
+                            />
+                            <Tooltip 
+                              contentStyle={{ 
+                                backgroundColor: 'hsl(var(--card))', 
+                                border: '1px solid hsl(var(--border))',
+                                borderRadius: '8px'
+                              }}
+                              formatter={(value: number) => [`৳${value.toLocaleString()}`, 'Value']}
+                            />
+                            <Area 
+                              type="monotone" 
+                              dataKey="optimistic" 
+                              stroke="hsl(var(--primary))" 
+                              strokeWidth={1}
+                              strokeDasharray="5 5"
+                              fill="none"
+                              name="Optimistic"
+                            />
+                            <Area 
+                              type="monotone" 
+                              dataKey="value" 
+                              stroke="hsl(var(--primary))" 
+                              strokeWidth={3}
+                              fill="url(#colorValue)"
+                              name="Expected"
+                            />
+                            <Area 
+                              type="monotone" 
+                              dataKey="conservative" 
+                              stroke="hsl(var(--primary))" 
+                              strokeWidth={1}
+                              strokeDasharray="5 5"
+                              fill="none"
+                              name="Conservative"
+                            />
+                          </AreaChart>
+                        </ResponsiveContainer>
+                      </div>
+
+                      <div className="grid md:grid-cols-3 gap-4">
+                        <div className="bg-muted/50 rounded-lg p-4 space-y-1">
+                          <p className="text-xs text-muted-foreground">Conservative (5 years)</p>
+                          <p className="text-2xl font-display font-bold text-foreground">৳2.6L</p>
+                          <p className="text-xs text-green-600">+160% ROI</p>
+                        </div>
+                        <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 space-y-1">
+                          <p className="text-xs text-muted-foreground">Expected (5 years)</p>
+                          <p className="text-2xl font-display font-bold text-primary">৳4.5L</p>
+                          <p className="text-xs text-green-600">+350% ROI</p>
+                        </div>
+                        <div className="bg-muted/50 rounded-lg p-4 space-y-1">
+                          <p className="text-xs text-muted-foreground">Optimistic (5 years)</p>
+                          <p className="text-2xl font-display font-bold text-foreground">৳7.2L</p>
+                          <p className="text-xs text-green-600">+620% ROI</p>
+                        </div>
+                      </div>
+
+                      <div className="bg-accent/10 border border-accent/20 rounded-lg p-4">
+                        <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                          <Shield className="h-4 w-4 text-primary" />
+                          Growth Assumptions
+                        </h4>
+                        <ul className="space-y-2 text-sm text-muted-foreground">
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary mt-0.5">•</span>
+                            <span><strong>Year 1-2:</strong> 25-30% annual growth as company scales operations and expands market reach</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary mt-0.5">•</span>
+                            <span><strong>Year 3-4:</strong> 35-50% growth through new product launches and market expansion</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-primary mt-0.5">•</span>
+                            <span><strong>Year 5:</strong> Potential exit event (acquisition or IPO) or continued dividend payments</span>
+                          </li>
+                        </ul>
+                        <p className="text-xs text-muted-foreground mt-3 italic">
+                          Note: These projections are estimates based on market analysis and company performance. Actual returns may vary. Past performance does not guarantee future results.
+                        </p>
+                      </div>
+
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-base font-display">Interactive ROI Calculator</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="calc-amount">Your Investment Amount (৳)</Label>
+                              <Input
+                                id="calc-amount"
+                                type="number"
+                                placeholder="100000"
+                                defaultValue="100000"
+                                min={campaign.minInvestment}
+                                onChange={(e) => {
+                                  const amount = parseInt(e.target.value) || 0;
+                                  const year5Value = amount * 4.5;
+                                  const roi = ((year5Value - amount) / amount * 100).toFixed(0);
+                                  const equityPercent = ((amount / campaign.fundingGoal) * campaign.equityOffered).toFixed(4);
+                                  
+                                  const resultDiv = document.getElementById('calc-result');
+                                  if (resultDiv) {
+                                    resultDiv.innerHTML = `
+                                      <div class="grid md:grid-cols-2 gap-4">
+                                        <div>
+                                          <p class="text-sm text-muted-foreground">Equity Stake</p>
+                                          <p class="text-2xl font-bold text-primary">${equityPercent}%</p>
+                                        </div>
+                                        <div>
+                                          <p class="text-sm text-muted-foreground">Expected Value (5Y)</p>
+                                          <p class="text-2xl font-bold text-foreground">৳${year5Value.toLocaleString()}</p>
+                                        </div>
+                                        <div class="md:col-span-2">
+                                          <p class="text-sm text-muted-foreground">Expected Return on Investment</p>
+                                          <p class="text-3xl font-bold text-green-600">+${roi}%</p>
+                                        </div>
+                                      </div>
+                                    `;
+                                  }
+                                }}
+                              />
+                            </div>
+                            <div id="calc-result" className="bg-muted/50 rounded-lg p-4">
+                              <div className="grid md:grid-cols-2 gap-4">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Equity Stake</p>
+                                  <p className="text-2xl font-bold text-primary">{((100000 / campaign.fundingGoal) * campaign.equityOffered).toFixed(4)}%</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Expected Value (5Y)</p>
+                                  <p className="text-2xl font-bold text-foreground">৳4,50,000</p>
+                                </div>
+                                <div className="md:col-span-2">
+                                  <p className="text-sm text-muted-foreground">Expected Return on Investment</p>
+                                  <p className="text-3xl font-bold text-green-600">+350%</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
                     </CardContent>
                   </Card>
                 </TabsContent>
