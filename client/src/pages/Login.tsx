@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -46,14 +46,15 @@ export default function Login() {
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           {/* Logo */}
-          <Link href="/">
-            <a className="flex items-center space-x-2 mb-8">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-accent font-semibold text-xl">DF</span>
-              </div>
-              <span className="text-2xl font-display font-bold text-foreground">DeshFund</span>
-            </a>
-          </Link>
+          <button 
+            onClick={() => setLocation("/")} 
+            className="flex items-center space-x-2 mb-8 hover:opacity-80 transition-opacity"
+          >
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground font-accent font-semibold text-xl">DF</span>
+            </div>
+            <span className="text-2xl font-display font-bold text-foreground">DeshFund</span>
+          </button>
 
           <Card>
             <CardHeader>
@@ -79,11 +80,13 @@ export default function Login() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="password">Password</Label>
-                    <Link href="/forgot-password">
-                      <a className="text-sm text-primary hover:underline">
-                        Forgot password?
-                      </a>
-                    </Link>
+                    <button 
+                      type="button"
+                      onClick={() => setLocation("/forgot-password")} 
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Forgot password?
+                    </button>
                   </div>
                   <div className="relative">
                     <Input
@@ -111,24 +114,34 @@ export default function Login() {
 
               <div className="mt-6 text-center text-sm text-muted-foreground">
                 Don't have an account?{" "}
-                <Link href="/register">
-                  <a className="text-primary font-medium hover:underline">
-                    Sign up
-                  </a>
-                </Link>
+                <button 
+                  type="button"
+                  onClick={() => setLocation("/register")} 
+                  className="text-primary font-medium hover:underline"
+                >
+                  Sign up
+                </button>
               </div>
             </CardContent>
           </Card>
 
           <p className="mt-8 text-center text-sm text-muted-foreground">
             By continuing, you agree to our{" "}
-            <Link href="/terms">
-              <a className="text-primary hover:underline">Terms of Service</a>
-            </Link>{" "}
+            <button 
+              type="button"
+              onClick={() => setLocation("/terms")} 
+              className="text-primary hover:underline"
+            >
+              Terms of Service
+            </button>{" "}
             and{" "}
-            <Link href="/privacy">
-              <a className="text-primary hover:underline">Privacy Policy</a>
-            </Link>
+            <button 
+              type="button"
+              onClick={() => setLocation("/privacy")} 
+              className="text-primary hover:underline"
+            >
+              Privacy Policy
+            </button>
           </p>
         </div>
       </div>

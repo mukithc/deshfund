@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 
@@ -19,6 +19,7 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,8 +43,9 @@ export default function Register() {
 
     try {
       await register(email, password, fullName);
-      toast.success("Account created successfully!");
-      setLocation("/dashboard");
+      // Show email verification message instead of redirecting
+      setEmailSent(true);
+      toast.success("Verification email sent! Please check your inbox.");
     } catch (error: any) {
       console.error("Registration error:", error);
       toast.error(error.response?.data?.message || "Registration failed. Please try again.");
@@ -58,24 +60,68 @@ export default function Register() {
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           {/* Logo */}
-          <Link href="/">
-            <a className="flex items-center space-x-2 mb-8">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-accent font-semibold text-xl">DF</span>
-              </div>
-              <span className="text-2xl font-display font-bold text-foreground">DeshFund</span>
-            </a>
-          </Link>
+          <button 
+            onClick={() => setLocation("/")} 
+            className="flex items-center space-x-2 mb-8 hover:opacity-80 transition-opacity"
+          >
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground font-accent font-semibold text-xl">DF</span>
+            </div>
+            <span className="text-2xl font-display font-bold text-foreground">DeshFund</span>
+          </button>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-display">Create Account</CardTitle>
+              <CardTitle className="text-2xl font-display">
+                {emailSent ? "Check Your Email" : "Create Account"}
+              </CardTitle>
               <CardDescription>
-                Join DeshFund and start investing in Bangladesh's most promising businesses
+                {emailSent 
+                  ? "We've sent a verification link to your email address"
+                  : "Join DeshFund and start investing in Bangladesh's most promising businesses"
+                }
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              {emailSent ? (
+                <div className="space-y-6">
+                  <div className="bg-primary/10 border border-primary/20 rounded-lg p-6 text-center">
+                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                      <svg className="w-8 h-8 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-display font-semibold text-foreground mb-2">
+                      Verification Email Sent
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      We've sent a verification link to <strong className="text-foreground">{email}</strong>. 
+                      Please check your inbox and click the link to verify your account.
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Didn't receive the email? Check your spam folder or{" "}
+                      <button 
+                        type="button"
+                        onClick={() => {
+                          setEmailSent(false);
+                          toast.info("You can resend the verification email");
+                        }}
+                        className="text-primary hover:underline font-medium"
+                      >
+                        try again
+                      </button>
+                    </p>
+                  </div>
+
+                  <Button 
+                    onClick={() => setLocation("/login")} 
+                    className="w-full font-accent"
+                  >
+                    Go to Login
+                  </Button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="fullName">Full Name</Label>
                   <Input
@@ -133,32 +179,47 @@ export default function Register() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full font-accent" disabled={isLoading}>
-                  {isLoading ? "Creating account..." : "Create Account"}
-                </Button>
-              </form>
+                  <Button type="submit" className="w-full font-accent" disabled={isLoading}>
+                    {isLoading ? "Creating account..." : "Create Account"}
+                  </Button>
+                </form>
+              )}
 
-              <div className="mt-6 text-center text-sm text-muted-foreground">
-                Already have an account?{" "}
-                <Link href="/login">
-                  <a className="text-primary font-medium hover:underline">
+              {!emailSent && (
+                <div className="mt-6 text-center text-sm text-muted-foreground">
+                  Already have an account?{" "}
+                  <button 
+                    type="button"
+                    onClick={() => setLocation("/login")} 
+                    className="text-primary font-medium hover:underline"
+                  >
                     Sign in
-                  </a>
-                </Link>
-              </div>
+                  </button>
+                </div>
+              )}
             </CardContent>
           </Card>
 
-          <p className="mt-8 text-center text-sm text-muted-foreground">
-            By creating an account, you agree to our{" "}
-            <Link href="/terms">
-              <a className="text-primary hover:underline">Terms of Service</a>
-            </Link>{" "}
-            and{" "}
-            <Link href="/privacy">
-              <a className="text-primary hover:underline">Privacy Policy</a>
-            </Link>
-          </p>
+          {!emailSent && (
+            <p className="mt-8 text-center text-sm text-muted-foreground">
+              By creating an account, you agree to our{" "}
+              <button 
+                type="button"
+                onClick={() => setLocation("/terms")} 
+                className="text-primary hover:underline"
+              >
+                Terms of Service
+              </button>{" "}
+              and{" "}
+              <button 
+                type="button"
+                onClick={() => setLocation("/privacy")} 
+                className="text-primary hover:underline"
+              >
+                Privacy Policy
+              </button>
+            </p>
+          )}
         </div>
       </div>
 
