@@ -100,8 +100,45 @@ export default function HowItWorks() {
           </div>
         </section>
 
-        {/* For Entrepreneurs */}
+        {/* Video Tutorial */}
         <section className="py-20">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">
+                Watch How It Works
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Get a quick overview of DeshFund's platform in this comprehensive video tutorial
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <Card className="overflow-hidden">
+                <div className="aspect-video bg-muted relative">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="DeshFund Platform Tutorial"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-display font-bold mb-2 text-foreground">
+                    Complete Platform Walkthrough
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Learn how to create campaigns, invest in businesses, track your portfolio, and leverage AI-powered insights. This 5-minute tutorial covers everything you need to get started on DeshFund.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* For Entrepreneurs */}
+        <section className="py-20 bg-muted/30">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">
@@ -147,7 +184,7 @@ export default function HowItWorks() {
         </section>
 
         {/* For Investors */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-20">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">
@@ -193,7 +230,7 @@ export default function HowItWorks() {
         </section>
 
         {/* Key Features */}
-        <section className="py-20">
+        <section className="py-20 bg-muted/30">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">

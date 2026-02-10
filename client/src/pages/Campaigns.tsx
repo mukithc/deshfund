@@ -197,9 +197,12 @@ export default function Campaigns() {
                           <span>{campaign.daysLeft} days left</span>
                         </div>
 
-                        <Link href={`/campaigns/${campaign.id}`}>
-                          <Button className="w-full font-accent">View Campaign</Button>
-                        </Link>
+                        <Button 
+                          className="w-full font-accent" 
+                          onClick={() => window.location.href = `/campaigns/${campaign.id}`}
+                        >
+                          View Campaign
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
