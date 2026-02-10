@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 
 /* Bangladesh Heritage Fusion Design - Register Page */
 
@@ -59,16 +59,27 @@ export default function Register() {
       {/* Left Side - Form */}
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
-          {/* Logo */}
-          <button 
-            onClick={() => setLocation("/")} 
-            className="flex items-center space-x-2 mb-8 hover:opacity-80 transition-opacity"
-          >
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-accent font-semibold text-xl">DF</span>
-            </div>
-            <span className="text-2xl font-display font-bold text-foreground">DeshFund</span>
-          </button>
+          {/* Logo and Back Button */}
+          <div className="flex items-center justify-between mb-8">
+            <button 
+              onClick={() => setLocation("/")} 
+              className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
+            >
+              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                <span className="text-primary-foreground font-accent font-semibold text-xl">DF</span>
+              </div>
+              <span className="text-2xl font-display font-bold text-foreground">DeshFund</span>
+            </button>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setLocation("/")} 
+              className="font-accent"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Home
+            </Button>
+          </div>
 
           <Card>
             <CardHeader>
