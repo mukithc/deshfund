@@ -1,5 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { 
@@ -137,8 +143,109 @@ export default function HowItWorks() {
           </div>
         </section>
 
-        {/* For Entrepreneurs */}
+        {/* FAQ Section */}
         <section className="py-20 bg-muted/30">
+          <div className="container">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Find answers to common questions about using DeshFund
+              </p>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              <Accordion type="single" collapsible className="space-y-4">
+                <AccordionItem value="item-1" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    How do I start investing on DeshFund?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Getting started is simple! First, create a free account by clicking "Get Started" and completing the registration form. Once registered, browse active campaigns, review their details and AI risk assessments, and choose campaigns that align with your interests. You can invest using bKash, Nagad, Rocket, or international credit cards. Your investment will be tracked in your dashboard.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-2" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    What is the minimum investment amount?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    The minimum investment amount varies by campaign, but typically starts from ৳5,000 (5 thousand taka). Each campaign sets its own minimum investment threshold based on their funding structure and equity offering. You'll see the minimum amount clearly displayed on each campaign page.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-3" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    How does DeshFund ensure campaign quality and security?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    We have a rigorous multi-step verification process. All campaigns undergo manual review by our team to verify business legitimacy, financial projections, and founder credentials. Additionally, our AI-powered fraud detection system analyzes campaign descriptions and patterns to flag suspicious activity. We also provide risk assessments for each campaign to help you make informed decisions. All transactions are encrypted and processed through secure payment gateways.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-4" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    What fees does DeshFund charge?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    For investors, there are no fees to browse campaigns or create an account. We charge a small transaction fee (typically 2-3%) when you make an investment, which covers payment processing costs. For entrepreneurs, we charge a platform fee of 5% on successfully funded campaigns. This fee helps us maintain the platform, provide AI-powered tools, and support the community.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-5" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    How long does it take for a campaign to get funded?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Campaign duration varies, but most campaigns run for 30-60 days. The funding timeline depends on factors like campaign quality, marketing efforts, funding goal size, and investor interest. Our data shows that campaigns with compelling stories, clear financial projections, and active founder engagement tend to reach their goals faster. You can track real-time progress on each campaign page.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-6" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    What happens if a campaign doesn't reach its funding goal?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    DeshFund operates on an "all-or-nothing" model for most campaigns. If a campaign doesn't reach its funding goal by the deadline, all investor funds are automatically refunded to their original payment method within 5-7 business days. This protects both investors and entrepreneurs by ensuring businesses only launch with adequate capital. Some campaigns may offer flexible funding options, which will be clearly indicated on the campaign page.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-7" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    How do I track my investments and returns?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Your personal dashboard provides comprehensive investment tracking. You'll see your total invested amount, current portfolio value, individual campaign performance, and estimated returns. Entrepreneurs are required to provide quarterly updates on business progress, which you'll receive via email and can view in your dashboard. You can also see real-time funding progress and investor activity for all your investments.
+                  </AccordionContent>
+                </AccordionItem>
+
+                <AccordionItem value="item-8" className="bg-background rounded-lg px-6 border">
+                  <AccordionTrigger className="text-left font-display font-semibold text-foreground hover:no-underline">
+                    Is DeshFund regulated and compliant with Bangladesh laws?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, DeshFund operates in compliance with Bangladesh Securities and Exchange Commission (BSEC) regulations for crowdfunding platforms. We follow all applicable financial regulations, data protection laws, and consumer protection guidelines. Our platform implements KYC (Know Your Customer) procedures and maintains transparent records of all transactions. We work closely with regulatory authorities to ensure a safe and legal investment environment.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+              <div className="mt-12 text-center">
+                <p className="text-muted-foreground mb-4">
+                  Still have questions? We're here to help!
+                </p>
+                <Link href="/contact">
+                  <Button size="lg" variant="outline" className="font-accent">
+                    Contact Support
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* For Entrepreneurs */}
+        <section className="py-20">
           <div className="container">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-foreground">
