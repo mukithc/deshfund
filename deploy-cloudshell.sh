@@ -24,34 +24,28 @@ if [ -d "$REPO_DIR" ]; then rm -rf "$REPO_DIR"; fi
 git clone --depth 1 "$GITHUB_REPO" "$REPO_DIR"
 cd "$REPO_DIR"
 
-# 2. Setup Node/pnpm
+# 2. Setup Node (CloudShell has Node pre-installed; use npx to avoid global installs)
 echo ""
-echo "[2/7] Setting up Node.js and pnpm..."
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 2>/dev/null || true
-
+echo "[2/7] Setting up build environment..."
 if ! command -v node &>/dev/null; then
-  echo "  Installing Node.js..."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  nvm install 20
-  nvm use 20
+  echo "  ERROR: Node.js not found. CloudShell should have it pre-installed."
+  exit 1
 fi
+echo "  Node: $(node -v)"
 
-corepack enable 2>/dev/null || npm install -g corepack
-corepack prepare pnpm@10.4.1 --activate 2>/dev/null || npm install -g pnpm
+# Use npx pnpm - no global install needed (avoids EACCES in CloudShell)
+PNPM="npx --yes pnpm@10.4.1"
 
 # 3. Install dependencies
 echo ""
 echo "[3/7] Installing dependencies..."
-pnpm install --frozen-lockfile
+$PNPM install --frozen-lockfile
 
 # 4. Build
 echo ""
 echo "[4/7] Building frontend..."
 export VITE_API_URL="$API_URL"
-pnpm build
+$PNPM build
 
 if [ ! -d "dist/public" ]; then
   echo "ERROR: Build failed - dist/public not found"
