@@ -11,7 +11,7 @@ phases:
       - npm install
   build:
     commands:
-      - export VITE_API_URL=${ApiUrl:-http://localhost:8080/api}
+      - export VITE_API_URL=${ApiUrl:-https://api.deshfund.com/api}
       - npm run build
   post_build:
     commands:

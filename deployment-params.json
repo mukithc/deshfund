@@ -1,7 +1,7 @@
 [
   {
     "ParameterKey": "ApiUrl",
-    "ParameterValue": "http://localhost:8080/api"
+    "ParameterValue": "https://api.deshfund.com/api"
   },
   {
     "ParameterKey": "Environment",

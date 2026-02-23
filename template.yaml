@@ -4,7 +4,7 @@ Description: DeshFund - S3 Static Website Hosting
 Parameters:
   ApiUrl:
     Type: String
-    Default: http://localhost:8080/api
+    Default: https://api.deshfund.com/api
     Description: Backend API URL for the frontend
   Environment:
     Type: String

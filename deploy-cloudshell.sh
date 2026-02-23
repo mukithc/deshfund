@@ -9,7 +9,7 @@ GITHUB_REPO="https://github.com/mukithc/deshfund.git"
 REPO_DIR="deshfund"
 BUCKET_PREFIX="deshfund"
 REGION="${AWS_REGION:-us-east-1}"
-API_URL="${VITE_API_URL:-http://localhost:8080/api}"
+API_URL="${VITE_API_URL:-https://api.deshfund.com/api}"
 
 echo ""
 echo "=== DeshFund AWS CloudShell Deployment ==="
