@@ -24,7 +24,7 @@ if [ -d "$REPO_DIR" ]; then rm -rf "$REPO_DIR"; fi
 git clone --depth 1 "$GITHUB_REPO" "$REPO_DIR"
 cd "$REPO_DIR"
 
-# 2. Setup Node (CloudShell has Node pre-installed; use npm - no global installs)
+# 2. Setup Node (CloudShell has Node pre-installed)
 echo ""
 echo "[2/7] Setting up build environment..."
 if ! command -v node &>/dev/null; then
@@ -32,6 +32,9 @@ if ! command -v node &>/dev/null; then
   exit 1
 fi
 echo "  Node: $(node -v)"
+
+# Remove packageManager field - triggers corepack which needs root in CloudShell
+sed -i '/"packageManager"/d' package.json 2>/dev/null || sed -i.bak '/"packageManager"/d' package.json
 
 # 3. Install dependencies (npm uses ~/.npm - writable in CloudShell)
 echo ""
