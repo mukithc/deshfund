@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: DeshFund - S3 Static Website Hosting
+
+Parameters:
+  ApiUrl:
+    Type: String
+    Default: http://localhost:8080/api
+    Description: Backend API URL for the frontend
+  Environment:
+    Type: String
+    Default: production
+    AllowedValues:
+      - production
+      - staging
+    Description: Deployment environment
+
+Resources:
+  DeshFundBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'deshfund-${AWS::AccountId}-${AWS::Region}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+
+  DeshFundBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    DependsOn: DeshFundBucket
+    Properties:
+      Bucket: !Ref DeshFundBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub '${DeshFundBucket.Arn}/*'
+
+Outputs:
+  WebsiteURL:
+    Description: URL of the DeshFund website
+    Value: !GetAtt DeshFundBucket.WebsiteURL
+    Export:
+      Name: !Sub '${AWS::StackName}-WebsiteURL'
+  BucketName:
+    Description: S3 bucket name
+    Value: !Ref DeshFundBucket
+    Export:
+      Name: !Sub '${AWS::StackName}-BucketName'

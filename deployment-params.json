@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "ApiUrl",
+    "ParameterValue": "http://localhost:8080/api"
+  },
+  {
+    "ParameterKey": "Environment",
+    "ParameterValue": "production"
+  }
+]

@@ -1,0 +1,22 @@
+version: 0.2
+
+# Set these as environment variables in CodeBuild:
+# ApiUrl - Backend API URL
+# BucketName - S3 bucket from CloudFormation stack output
+
+phases:
+  pre_build:
+    commands:
+      - sed -i '/"packageManager"/d' package.json 2>/dev/null || true
+      - npm install
+  build:
+    commands:
+      - export VITE_API_URL=${ApiUrl:-http://localhost:8080/api}
+      - npm run build
+  post_build:
+    commands:
+      - aws s3 sync dist/public s3://$BucketName --delete
+
+artifacts:
+  files:
+    - '**/*'

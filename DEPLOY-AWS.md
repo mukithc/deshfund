@@ -4,6 +4,21 @@ This guide covers multiple AWS deployment options for the DeshFund app.
 
 ---
 
+## CloudFormation Git Integration
+
+**Deployment file path:** `buildspec.yml`  
+**Template file path:** `template.yaml`
+
+**Deployment file parameters** (add in AWS Console):
+| Parameter | Value |
+|-----------|-------|
+| ApiUrl | `https://api.yourdomain.com/api` |
+| BucketName | *(from stack output after first deploy)* |
+
+**First deploy:** Create the stack manually to get the BucketName output, then add it to the build environment.
+
+---
+
 ## Option 0: AWS CloudShell (One-Command Deploy)
 
 **No local install needed.** Open [AWS CloudShell](https://console.aws.amazon.com/cloudshell/) in your browser and run:
