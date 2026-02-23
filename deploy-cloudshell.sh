@@ -24,7 +24,7 @@ if [ -d "$REPO_DIR" ]; then rm -rf "$REPO_DIR"; fi
 git clone --depth 1 "$GITHUB_REPO" "$REPO_DIR"
 cd "$REPO_DIR"
 
-# 2. Setup Node (CloudShell has Node pre-installed; use npx to avoid global installs)
+# 2. Setup Node (CloudShell has Node pre-installed; use npm - no global installs)
 echo ""
 echo "[2/7] Setting up build environment..."
 if ! command -v node &>/dev/null; then
@@ -33,19 +33,16 @@ if ! command -v node &>/dev/null; then
 fi
 echo "  Node: $(node -v)"
 
-# Use npx pnpm - no global install needed (avoids EACCES in CloudShell)
-PNPM="npx --yes pnpm@10.4.1"
-
-# 3. Install dependencies
+# 3. Install dependencies (npm uses ~/.npm - writable in CloudShell)
 echo ""
 echo "[3/7] Installing dependencies..."
-$PNPM install --frozen-lockfile
+npm install
 
 # 4. Build
 echo ""
 echo "[4/7] Building frontend..."
 export VITE_API_URL="$API_URL"
-$PNPM build
+npm run build
 
 if [ ! -d "dist/public" ]; then
   echo "ERROR: Build failed - dist/public not found"
@@ -92,5 +89,5 @@ echo ""
 echo "For HTTPS: Create a CloudFront distribution with origin:"
 echo "  ${BUCKET_NAME}.s3-website-${REGION}.amazonaws.com"
 echo ""
-echo "To redeploy: cd $REPO_DIR && pnpm build && aws s3 sync dist/public s3://${BUCKET_NAME} --delete"
+echo "To redeploy: cd deshfund && npm run build && aws s3 sync dist/public s3://${BUCKET_NAME} --delete"
 echo ""
