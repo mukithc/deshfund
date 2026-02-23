@@ -1,0 +1,45 @@
+# S3 ONLY - No CloudFront. Use this if the full template keeps failing.
+# Your app will be at: http://deshfund-ACCOUNTID-REGION.s3-website-REGION.amazonaws.com
+AWSTemplateFormatVersion: '2010-09-09'
+Description: DeshFund - S3 Static Website Only (no CloudFront)
+
+Parameters:
+  ApiUrl:
+    Type: String
+    Default: https://api.deshfund.com/api
+  Environment:
+    Type: String
+    Default: production
+    AllowedValues: [production, staging]
+
+Resources:
+  DeshFundBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'deshfund-${AWS::AccountId}-${AWS::Region}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+
+  DeshFundBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref DeshFundBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action: s3:GetObject
+            Resource: !Sub '${DeshFundBucket.Arn}/*'
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt DeshFundBucket.WebsiteURL
+  BucketName:
+    Value: !Ref DeshFundBucket
