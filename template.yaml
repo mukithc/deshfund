@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: DeshFund - S3 Static Website Hosting
+Description: DeshFund - S3 Static Website + CloudFront (HTTPS)
 
 Parameters:
   ApiUrl:
@@ -17,8 +17,14 @@ Parameters:
 Resources:
   DeshFundBucket:
     Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
     Properties:
       BucketName: !Sub 'deshfund-${AWS::AccountId}-${AWS::Region}'
+      Tags:
+        - Key: Project
+          Value: DeshFund
+        - Key: Environment
+          Value: !Ref Environment
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
@@ -42,14 +48,74 @@ Resources:
             Action: s3:GetObject
             Resource: !Sub '${DeshFundBucket.Arn}/*'
 
+  DeshFundDistribution:
+    Type: AWS::CloudFront::Distribution
+    DeletionPolicy: Retain
+    DependsOn: DeshFundBucketPolicy
+    Properties:
+      Tags:
+        - Key: Project
+          Value: DeshFund
+        - Key: Environment
+          Value: !Ref Environment
+      DistributionConfig:
+        Enabled: true
+        Comment: DeshFund - deshfund.com
+        DefaultRootObject: index.html
+        PriceClass: PriceClass_100
+        Origins:
+          - Id: S3Website
+            DomainName: !Sub '${DeshFundBucket}.s3-website.${AWS::Region}.amazonaws.com'
+            CustomOriginConfig:
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginProtocolPolicy: http-only
+        DefaultCacheBehavior:
+          TargetOriginId: S3Website
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - HEAD
+            - OPTIONS
+          CachedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+          MinTTL: 0
+          DefaultTTL: 86400
+          MaxTTL: 31536000
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 300
+          - ErrorCode: 404
+            ResponseCode: 200
+            ResponsePagePath: /index.html
+            ErrorCachingMinTTL: 300
+
 Outputs:
   WebsiteURL:
-    Description: URL of the DeshFund website
+    Description: S3 website URL (HTTP)
     Value: !GetAtt DeshFundBucket.WebsiteURL
     Export:
       Name: !Sub '${AWS::StackName}-WebsiteURL'
+  CloudFrontURL:
+    Description: CloudFront URL (HTTPS) - use this for production
+    Value: !Sub 'https://${DeshFundDistribution.DomainName}'
+    Export:
+      Name: !Sub '${AWS::StackName}-CloudFrontURL'
+  CloudFrontDomain:
+    Description: CloudFront domain - add CNAME for deshfund.com
+    Value: !GetAtt DeshFundDistribution.DomainName
+    Export:
+      Name: !Sub '${AWS::StackName}-CloudFrontDomain'
   BucketName:
-    Description: S3 bucket name
+    Description: S3 bucket name for deployment
     Value: !Ref DeshFundBucket
     Export:
       Name: !Sub '${AWS::StackName}-BucketName'
