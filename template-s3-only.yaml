@@ -16,7 +16,7 @@ Resources:
   DeshFundBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub 'deshfund-${AWS::AccountId}-${AWS::Region}'
+      BucketName: !Sub 'deshfund-app-${AWS::AccountId}-${AWS::Region}'
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
